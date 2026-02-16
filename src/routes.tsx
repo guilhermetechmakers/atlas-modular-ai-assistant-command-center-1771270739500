@@ -1,0 +1,48 @@
+import { createBrowserRouter } from 'react-router-dom'
+import { DashboardLayout } from '@/components/layout/dashboard-layout'
+import { LandingPage } from '@/pages/landing'
+import { LoginPage } from '@/pages/auth/login'
+import { SignupPage } from '@/pages/auth/signup'
+import { PasswordResetPage } from '@/pages/auth/password-reset'
+import { DashboardOverview } from '@/pages/dashboard/overview'
+import { ProjectsPage } from '@/pages/dashboard/projects'
+import { ContentPipelinePage } from '@/pages/dashboard/content'
+import { ResearchPage } from '@/pages/dashboard/research'
+import { CalendarPage } from '@/pages/dashboard/calendar'
+import { FinancePage } from '@/pages/dashboard/finance'
+import { AgentsPage } from '@/pages/dashboard/agents'
+import { SettingsPage } from '@/pages/dashboard/settings'
+import { HelpPage } from '@/pages/help'
+import { AdminDashboard } from '@/pages/admin'
+import { PrivacyPage } from '@/pages/legal/privacy'
+import { TermsPage } from '@/pages/legal/terms'
+import { NotFoundPage } from '@/pages/errors/not-found'
+import { ServerErrorPage } from '@/pages/errors/server-error'
+
+export const router = createBrowserRouter([
+  { path: '/', element: <LandingPage /> },
+  { path: '/login', element: <LoginPage /> },
+  { path: '/signup', element: <SignupPage /> },
+  { path: '/password-reset', element: <PasswordResetPage /> },
+  {
+    path: '/dashboard',
+    element: <DashboardLayout />,
+    children: [
+      { index: true, element: <DashboardOverview /> },
+      { path: 'projects', element: <ProjectsPage /> },
+      { path: 'content', element: <ContentPipelinePage /> },
+      { path: 'research', element: <ResearchPage /> },
+      { path: 'calendar', element: <CalendarPage /> },
+      { path: 'finance', element: <FinancePage /> },
+      { path: 'agents', element: <AgentsPage /> },
+      { path: 'settings', element: <SettingsPage /> },
+    ],
+  },
+  { path: '/admin', element: <AdminDashboard /> },
+  { path: '/admin/audit', element: <AdminDashboard /> },
+  { path: '/help', element: <HelpPage /> },
+  { path: '/privacy', element: <PrivacyPage /> },
+  { path: '/terms', element: <TermsPage /> },
+  { path: '/500', element: <ServerErrorPage /> },
+  { path: '*', element: <NotFoundPage /> },
+])
