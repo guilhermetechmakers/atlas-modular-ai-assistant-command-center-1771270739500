@@ -32,12 +32,14 @@ export function GitHubSummaryCard({
   const displayItems = filtered.slice(0, 8)
 
   return (
-    <Card className="transition-all duration-200 hover:shadow-card-hover border-border">
+    <Card className="border-border transition-all duration-200 hover:shadow-card-hover hover:border-primary/20">
       <CardHeader className="pb-2">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <CardTitle className="flex items-center gap-2 text-lg">
-              <FolderGit2 className="h-5 w-5 text-primary" />
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
+                <FolderGit2 className="h-5 w-5 text-primary" aria-hidden />
+              </span>
               GitHub
             </CardTitle>
             <CardDescription>Recent commits, PRs, and issues.</CardDescription>
@@ -84,7 +86,7 @@ export function GitHubSummaryCard({
                   <a
                     href={item.href ?? '#'}
                     className={cn(
-                      'flex items-center gap-3 rounded-lg border border-transparent px-3 py-2 transition-colors hover:bg-secondary/50 hover:border-border'
+                      'flex items-center gap-3 rounded-lg border border-transparent px-3 py-2 transition-colors hover:bg-secondary/50 hover:border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
                     )}
                   >
                     {Icon && <Icon className="h-4 w-4 shrink-0 text-muted-foreground" />}

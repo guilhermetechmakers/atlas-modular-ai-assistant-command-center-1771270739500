@@ -32,10 +32,12 @@ export function TodayPanel({
   const hasTasks = quickTasks.length > 0
 
   return (
-    <Card className="transition-all duration-200 hover:shadow-card-hover border-border">
+    <Card className="border-border transition-all duration-200 hover:shadow-card-hover hover:border-primary/20">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2 text-lg">
-          <Calendar className="h-5 w-5 text-primary" />
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
+            <Calendar className="h-5 w-5 text-primary" aria-hidden />
+          </span>
           Today
         </CardTitle>
         <CardDescription>Calendar events, focus blocks, and quick tasks.</CardDescription>
@@ -77,8 +79,13 @@ export function TodayPanel({
                   ))}
                 </ul>
               ) : (
-                <div className="rounded-lg border border-dashed border-border py-6 text-center text-sm text-muted-foreground">
-                  No events today. Connect calendar in Settings.
+                <div className="rounded-lg border border-dashed border-border bg-muted/30 py-8 text-center">
+                  <Calendar className="mx-auto h-10 w-10 text-muted-foreground/60" aria-hidden />
+                  <p className="mt-2 text-sm font-medium text-muted-foreground">No events today</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Connect your calendar in Settings to see events here.</p>
+                  <Button variant="outline" size="sm" className="mt-4" asChild>
+                    <Link to="/dashboard/settings">Settings</Link>
+                  </Button>
                 </div>
               )}
             </div>
@@ -96,7 +103,7 @@ export function TodayPanel({
                         type="button"
                         onClick={() => onTaskToggle?.(t.id, !t.done)}
                         className={cn(
-                          'flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border transition-colors hover:bg-secondary',
+                          'flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                           t.done && 'bg-primary/20 border-primary/40'
                         )}
                         aria-label={t.done ? 'Mark incomplete' : 'Mark complete'}
@@ -117,7 +124,9 @@ export function TodayPanel({
                   ))}
                 </ul>
               ) : (
-                <p className="text-sm text-muted-foreground">No quick tasks. Add one below.</p>
+                <div className="rounded-lg border border-dashed border-border bg-muted/30 py-4 text-center text-sm text-muted-foreground">
+                  No quick tasks. Open Calendar to add focus blocks or tasks.
+                </div>
               )}
             </div>
 

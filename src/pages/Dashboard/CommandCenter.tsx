@@ -18,6 +18,8 @@ import type {
   FinanceTransaction,
   AgentActivityItem,
 } from '@/types/command-center'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Button } from '@/components/ui/button'
 
 function buildSearchIndex(data: CommandCenterData): GlobalSearchResult[] {
   const index: GlobalSearchResult[] = []
@@ -115,23 +117,6 @@ export default function CommandCenterPage() {
     // Optional: persist task state via API
   }, [])
 
-  if (error && !data) {
-    return (
-      <div className="flex min-h-[40vh] items-center justify-center">
-        <div className="text-center">
-          <p className="text-destructive">{error}</p>
-          <button
-            type="button"
-            onClick={() => window.location.reload()}
-            className="mt-2 text-sm text-primary hover:underline"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
-    )
-  }
-
   const pageTitle = 'Command Center | Atlas'
   useEffect(() => {
     document.title = pageTitle
@@ -140,19 +125,73 @@ export default function CommandCenterPage() {
     }
   }, [])
 
+  if (error && !data) {
+    return (
+      <div
+        className="flex min-h-[40vh] flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-border bg-card/50 p-8 text-center"
+        role="alert"
+      >
+        <p className="text-destructive font-medium">{error}</p>
+        <p className="text-sm text-muted-foreground">
+          We couldn’t load your dashboard. Check your connection and try again.
+        </p>
+        <Button
+          type="button"
+          variant="default"
+          onClick={() => window.location.reload()}
+          className="mt-2 transition-transform hover:scale-[1.02] active:scale-[0.98]"
+        >
+          Retry
+        </Button>
+      </div>
+    )
+  }
+
+  if (loading && !data) {
+    return (
+      <div className="space-y-6 animate-fade-in">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <Skeleton className="h-8 w-64 rounded-lg" />
+            <Skeleton className="mt-2 h-4 w-96 max-w-full rounded-lg" />
+          </div>
+          <div className="flex gap-2">
+            <Skeleton className="h-9 w-24 rounded-lg" />
+            <Skeleton className="h-9 w-24 rounded-lg" />
+          </div>
+        </div>
+        <Skeleton className="h-11 max-w-2xl rounded-xl" />
+        <Skeleton className="h-12 w-full rounded-xl" />
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="space-y-4 lg:col-span-2">
+            <Skeleton className="h-64 w-full rounded-xl" />
+          </div>
+          <Skeleton className="h-64 w-full rounded-xl" />
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          <Skeleton className="h-72 w-full rounded-xl" />
+          <Skeleton className="h-72 w-full rounded-xl" />
+        </div>
+        <Skeleton className="h-80 w-full rounded-xl" />
+      </div>
+    )
+  }
+
   return (
     <>
       <div className="space-y-6 animate-fade-in">
         {/* Header + Global search + Notifications */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-white md:text-3xl">Command Center</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+              Command Center
+            </h1>
             <p className="mt-1 text-muted-foreground">
               Your daily summary: GitHub activity, calendar, content tasks, finance alerts, and agent suggestions.
             </p>
           </div>
           <NotificationsAuditLogQuickLink />
-        </div>
+        </header>
 
         {/* Global Search Bar - omnibox */}
         <GlobalSearchBar searchIndex={searchIndex} className="w-full max-w-2xl" />

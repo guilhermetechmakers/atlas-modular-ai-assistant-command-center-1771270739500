@@ -29,10 +29,12 @@ export function AgentActivityFeed({
   const recent = items.slice(0, 8)
 
   return (
-    <Card className="transition-all duration-200 hover:shadow-card-hover border-border">
+    <Card className="border-border transition-all duration-200 hover:shadow-card-hover hover:border-primary/20">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2 text-lg">
-          <Bot className="h-5 w-5 text-primary" />
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
+            <Bot className="h-5 w-5 text-primary" aria-hidden />
+          </span>
           Agent activity
         </CardTitle>
         <CardDescription>Recent agent outputs and pending approvals.</CardDescription>
@@ -75,16 +77,18 @@ export function AgentActivityFeed({
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="h-8 text-green-500 hover:text-green-400"
+                        className="h-8 text-green-500 hover:text-green-400 focus-visible:ring-2 focus-visible:ring-ring"
                         onClick={() => onApprove?.(item.id)}
+                        aria-label="Approve"
                       >
                         Approve
                       </Button>
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="h-8 text-destructive hover:text-destructive/90"
+                        className="h-8 text-destructive hover:text-destructive/90 focus-visible:ring-2 focus-visible:ring-ring"
                         onClick={() => onReject?.(item.id)}
+                        aria-label="Reject"
                       >
                         Reject
                       </Button>

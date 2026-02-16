@@ -17,10 +17,12 @@ export function ContentPipelineCard({ items, isLoading }: ContentPipelineCardPro
   const displayScheduled = scheduled.slice(0, 3)
 
   return (
-    <Card className="transition-all duration-200 hover:shadow-card-hover border-border">
+    <Card className="border-border transition-all duration-200 hover:shadow-card-hover hover:border-primary/20">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2 text-lg">
-          <FileText className="h-5 w-5 text-primary" />
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
+            <FileText className="h-5 w-5 text-primary" aria-hidden />
+          </span>
           Content Pipeline
         </CardTitle>
         <CardDescription>Due drafts, scheduled posts, and quick-create ideas.</CardDescription>
@@ -83,8 +85,10 @@ export function ContentPipelineCard({ items, isLoading }: ContentPipelineCardPro
               </div>
             )}
             {items.length === 0 && (
-              <div className="rounded-lg border border-dashed border-border py-6 text-center text-sm text-muted-foreground">
-                No drafts or scheduled posts. Add an idea to get started.
+              <div className="rounded-lg border border-dashed border-border bg-muted/30 py-8 text-center">
+                <FileText className="mx-auto h-10 w-10 text-muted-foreground/60" aria-hidden />
+                <p className="mt-2 text-sm font-medium text-muted-foreground">No drafts or scheduled posts</p>
+                <p className="mt-1 text-xs text-muted-foreground">Add an idea or create a draft to get started.</p>
               </div>
             )}
             <div className="flex flex-wrap gap-2 pt-2">

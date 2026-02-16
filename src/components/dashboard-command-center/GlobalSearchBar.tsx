@@ -90,8 +90,8 @@ export function GlobalSearchBar({
           onBlur={() => setTimeout(() => setIsOpen(false), 150)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="h-11 w-full pl-10 pr-4 rounded-xl border-border bg-secondary/50 focus-visible:ring-2 focus-visible:ring-primary/50 transition-all duration-200"
-          aria-label="Global search"
+          className="h-11 w-full pl-10 pr-4 rounded-xl border-border bg-secondary/50 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:border-primary/30"
+          aria-label="Search repos, notes, events, transactions, and agents"
           aria-expanded={isOpen}
           aria-autocomplete="list"
           aria-controls="global-search-results"

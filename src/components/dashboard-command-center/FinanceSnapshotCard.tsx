@@ -24,10 +24,12 @@ export function FinanceSnapshotCard({
   const recent = transactions.slice(0, 5)
 
   return (
-    <Card className="transition-all duration-200 hover:shadow-card-hover border-border">
+    <Card className="border-border transition-all duration-200 hover:shadow-card-hover hover:border-primary/20">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2 text-lg">
-          <Wallet className="h-5 w-5 text-primary" />
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
+            <Wallet className="h-5 w-5 text-primary" aria-hidden />
+          </span>
           Finance snapshot
         </CardTitle>
         <CardDescription>Recent transactions and runway.</CardDescription>
@@ -64,8 +66,13 @@ export function FinanceSnapshotCard({
                 Recent transactions
               </p>
               {recent.length === 0 ? (
-                <div className="rounded-lg border border-dashed border-border py-6 text-center text-sm text-muted-foreground">
-                  No transactions. Import CSV to get started.
+                <div className="rounded-lg border border-dashed border-border bg-muted/30 py-8 text-center">
+                  <Wallet className="mx-auto h-10 w-10 text-muted-foreground/60" aria-hidden />
+                  <p className="mt-2 text-sm font-medium text-muted-foreground">No transactions yet</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Import CSV or add transactions in Finance Cockpit.</p>
+                  <Button variant="outline" size="sm" className="mt-4" asChild>
+                    <Link to="/dashboard/finance">Finance Cockpit</Link>
+                  </Button>
                 </div>
               ) : (
                 <ul className="space-y-1">

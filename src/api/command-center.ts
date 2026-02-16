@@ -30,12 +30,30 @@ export async function getCommandCenterData(): Promise<CommandCenterData> {
   }
 }
 
+/** Simple fuzzy match: query chars appear in order in text (case-insensitive) */
+function fuzzyMatch(query: string, text: string): boolean {
+  if (!query.trim()) return true
+  const q = query.trim().toLowerCase()
+  const t = text.toLowerCase()
+  let j = 0
+  for (let i = 0; i < t.length && j < q.length; i++) {
+    if (t[i] === q[j]) j++
+  }
+  return j === q.length
+}
+
 /** Global search: filter existing index by query (client-side fuzzy) */
 export function searchCommandCenter(
-  _query: string,
+  query: string,
   index: GlobalSearchResult[]
 ): GlobalSearchResult[] {
-  return index
+  if (!query.trim()) return index.slice(0, 20)
+  return index.filter(
+    (r) =>
+      fuzzyMatch(query, r.title) ||
+      (r.subtitle != null && fuzzyMatch(query, r.subtitle)) ||
+      (r.meta != null && fuzzyMatch(query, r.meta))
+  )
 }
 
 /** CRUD for dashboard command center entities */
