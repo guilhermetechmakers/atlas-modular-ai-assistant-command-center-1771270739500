@@ -35,7 +35,7 @@ const mainNav = [
 ]
 
 const bottomNav = [
-  { to: '/dashboard/settings', label: 'Settings', icon: Settings },
+  { to: '/dashboard/settings/preferences', label: 'Settings', icon: Settings },
   { to: '/help', label: 'About & Help', icon: HelpCircle },
 ]
 

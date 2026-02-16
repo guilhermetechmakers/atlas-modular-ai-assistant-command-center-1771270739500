@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { useAuth } from '@/contexts/auth-context'
+import { login as apiLogin } from '@/api/auth'
 
 const schema = z.object({
   email: z.string().email('Invalid email'),
@@ -18,6 +20,7 @@ type FormData = z.infer<typeof schema>
 
 export function LoginPage() {
   const navigate = useNavigate()
+  const { setUser } = useAuth()
   const {
     register,
     handleSubmit,
@@ -27,11 +30,16 @@ export function LoginPage() {
     defaultValues: { email: '', password: '' },
   })
 
-  const onSubmit = async (_data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     try {
-      // TODO: call auth API
+      const session = await apiLogin({ email: data.email, password: data.password })
+      setUser(session.user)
       toast.success('Welcome back.')
-      navigate('/dashboard')
+      if (session.user.emailVerified) {
+        navigate('/dashboard')
+      } else {
+        navigate('/verify-email')
+      }
     } catch {
       toast.error('Invalid email or password.')
     }

@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { useAuth } from '@/contexts/auth-context'
+import { signup as apiSignup } from '@/api/auth'
 
 const schema = z
   .object({
@@ -25,6 +27,7 @@ type FormData = z.infer<typeof schema>
 
 export function SignupPage() {
   const navigate = useNavigate()
+  const { setUser } = useAuth()
   const {
     register,
     handleSubmit,
@@ -34,11 +37,16 @@ export function SignupPage() {
     defaultValues: { email: '', password: '', confirmPassword: '', workspaceName: '' },
   })
 
-  const onSubmit = async (_data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     try {
-      // TODO: call auth API + workspace creation
+      const session = await apiSignup({
+        email: data.email,
+        password: data.password,
+        workspaceName: data.workspaceName,
+      })
+      setUser(session.user)
       toast.success('Account created. Check your email to verify.')
-      navigate('/dashboard')
+      navigate('/verify-email')
     } catch {
       toast.error('Sign up failed. Please try again.')
     }

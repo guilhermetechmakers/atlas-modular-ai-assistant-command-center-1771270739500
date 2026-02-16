@@ -1,9 +1,10 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { LandingPage } from '@/pages/landing'
 import { LoginPage } from '@/pages/auth/login'
 import { SignupPage } from '@/pages/auth/signup'
 import { PasswordResetPage } from '@/pages/auth/password-reset'
+import { VerifyEmailPage } from '@/pages/auth/verify-email'
 import { DashboardOverview } from '@/pages/dashboard/overview'
 import { ProjectsPage } from '@/pages/dashboard/projects'
 import { ContentPipelinePage } from '@/pages/dashboard/content'
@@ -11,7 +12,7 @@ import { ResearchPage } from '@/pages/dashboard/research'
 import { CalendarPage } from '@/pages/dashboard/calendar'
 import { FinancePage } from '@/pages/dashboard/finance'
 import { AgentsPage } from '@/pages/dashboard/agents'
-import { SettingsPage } from '@/pages/dashboard/settings'
+import PreferencesPage from '@/pages/Settings/Preferences'
 import { HelpPage } from '@/pages/help'
 import { AdminDashboard } from '@/pages/admin'
 import { PrivacyPage } from '@/pages/legal/privacy'
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
   { path: '/signup', element: <SignupPage /> },
   { path: '/password-reset', element: <PasswordResetPage /> },
+  { path: '/verify-email', element: <VerifyEmailPage /> },
   {
     path: '/dashboard',
     element: <DashboardLayout />,
@@ -35,9 +37,11 @@ export const router = createBrowserRouter([
       { path: 'calendar', element: <CalendarPage /> },
       { path: 'finance', element: <FinancePage /> },
       { path: 'agents', element: <AgentsPage /> },
-      { path: 'settings', element: <SettingsPage /> },
+      { path: 'settings', element: <PreferencesPage /> },
+      { path: 'settings/preferences', element: <PreferencesPage /> },
     ],
   },
+  { path: '/settings-/-preferences', element: <Navigate to="/dashboard/settings/preferences" replace /> },
   { path: '/admin', element: <AdminDashboard /> },
   { path: '/admin/audit', element: <AdminDashboard /> },
   { path: '/help', element: <HelpPage /> },

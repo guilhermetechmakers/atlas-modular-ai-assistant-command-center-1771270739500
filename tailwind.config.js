@@ -69,11 +69,17 @@ export default {
           '0%': { opacity: '0', transform: 'scale(0.96)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
         },
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-4px)' },
+          '20%, 40%, 60%, 80%': { transform: 'translateX(4px)' },
+        },
       },
       animation: {
         'fade-in': 'fade-in 0.3s ease-out',
         'fade-in-up': 'fade-in-up 0.4s ease-out',
         'scale-in': 'scale-in 0.2s ease-out',
+        shake: 'shake 0.4s ease-in-out',
       },
     },
   },

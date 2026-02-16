@@ -1,11 +1,30 @@
-import { Outlet, Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Outlet, Link, useNavigate } from 'react-router-dom'
 import { Search, Bell, FileCheck } from 'lucide-react'
 import { AppSidebar } from '@/components/layout/app-sidebar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/contexts/auth-context'
 
 export function DashboardLayout() {
+  const navigate = useNavigate()
+  const { user, emailVerified } = useAuth()
+
+  useEffect(() => {
+    if (user && !emailVerified) {
+      navigate('/verify-email', { replace: true })
+    }
+  }, [user, emailVerified, navigate])
+
+  if (user && !emailVerified) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background p-4">
+        <div className="h-8 w-8 animate-pulse rounded-full bg-muted" aria-hidden />
+      </div>
+    )
+  }
+
   return (
     <div className="flex min-h-screen bg-background">
       <AppSidebar />
