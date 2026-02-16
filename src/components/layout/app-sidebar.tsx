@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import {
   LayoutDashboard,
+  Gauge,
   FolderGit2,
   FileText,
   BookOpen,
@@ -26,6 +27,7 @@ const SIDEBAR_STORAGE_KEY = 'atlas-sidebar-collapsed'
 
 const mainNav = [
   { to: '/dashboard', label: 'Overview', icon: LayoutDashboard },
+  { to: '/dashboard/command-center', label: 'Command Center', icon: Gauge },
   { to: '/dashboard/projects', label: 'Projects', icon: FolderGit2 },
   { to: '/dashboard/content', label: 'Content Pipeline', icon: FileText },
   { to: '/dashboard/research', label: 'Research & KB', icon: BookOpen },

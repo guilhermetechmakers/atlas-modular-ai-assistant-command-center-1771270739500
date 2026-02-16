@@ -91,6 +91,7 @@ export function LandingPage() {
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 text-sm text-muted-foreground">
           <span>© Atlas. Self-hostable command center.</span>
           <div className="flex gap-6">
+            <Link to="/login-/-signup" className="hover:text-foreground">Login / Sign up</Link>
             <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
             <Link to="/terms" className="hover:text-foreground">Terms</Link>
             <Link to="/help" className="hover:text-foreground">Help</Link>

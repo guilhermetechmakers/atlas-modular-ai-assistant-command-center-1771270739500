@@ -3,9 +3,11 @@ import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { LandingPage } from '@/pages/landing'
 import { LoginPage } from '@/pages/auth/login'
 import { SignupPage } from '@/pages/auth/signup'
+import LoginSignupPage from '@/pages/Login/Signup'
 import { PasswordResetPage } from '@/pages/auth/password-reset'
 import { VerifyEmailPage } from '@/pages/auth/verify-email'
 import { DashboardOverview } from '@/pages/dashboard/overview'
+import CommandCenterPage from '@/pages/Dashboard/CommandCenter'
 import { ProjectsPage } from '@/pages/dashboard/projects'
 import { ContentPipelinePage } from '@/pages/dashboard/content'
 import { ResearchPage } from '@/pages/dashboard/research'
@@ -26,11 +28,13 @@ export const router = createBrowserRouter([
   { path: '/signup', element: <SignupPage /> },
   { path: '/password-reset', element: <PasswordResetPage /> },
   { path: '/verify-email', element: <VerifyEmailPage /> },
+  { path: '/login-/-signup', element: <LoginSignupPage /> },
   {
     path: '/dashboard',
     element: <DashboardLayout />,
     children: [
       { index: true, element: <DashboardOverview /> },
+      { path: 'command-center', element: <CommandCenterPage /> },
       { path: 'projects', element: <ProjectsPage /> },
       { path: 'content', element: <ContentPipelinePage /> },
       { path: 'research', element: <ResearchPage /> },
@@ -42,6 +46,7 @@ export const router = createBrowserRouter([
     ],
   },
   { path: '/settings-/-preferences', element: <Navigate to="/dashboard/settings/preferences" replace /> },
+  { path: '/dashboard-/-command-center', element: <Navigate to="/dashboard/command-center" replace /> },
   { path: '/admin', element: <AdminDashboard /> },
   { path: '/admin/audit', element: <AdminDashboard /> },
   { path: '/help', element: <HelpPage /> },
